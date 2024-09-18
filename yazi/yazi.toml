@@ -1,0 +1,76 @@
+"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+
+[manager]
+ratio = [1, 4, 3]
+sort_by = "natural"
+sort_dir_first = true
+
+[preview]
+max_width = 99999
+max_height = 99999
+
+[opener]
+folder = [
+    { run = 'open "$@"', orphan = true, desc = "Finder", for = "macos" },
+]
+
+text = [
+  { run = 'nvim "$@"', block = true, desc = "neovim", for = "macos" },
+  { run = 'kitty --detach nvim "$@"', block = true, desc = "neovim (detached)", for = "macos" },
+  { run = 'open -a "VSCodium" "$@"', orphan = true, desc = "VSCodium", for = "macos" }
+]
+
+document = [
+  { run = 'open "$@"', orphan = true, desc = "Open with default app", for = "macos" },
+  { run = 'open -a "Preview" "$@"', orphan = true, desc = "Preview (PDFs)", for = "macos" }
+]
+
+image = [
+  { run = 'open "$@"', orphan = true, desc = "Open with Preview", for = "macos" }
+]
+
+video = [
+  { run = 'open "$@"', orphan = true, desc = "Open with default app", for = "macos" },
+]
+audio = [
+    { run = 'open "$@"', orphan = true, desc = "Open with default app", for = "macos" },
+]
+fallback = [
+  { run = 'open "$@"', orphan = true, desc = "Open with default app", for = "macos" }
+]
+
+[open]
+rules = [
+  { name = "*/", use = "folder" },
+
+  { mime = "text/*", use = "text" },
+  { mime = "image/*", use = "image" },
+  { mime = "video/*", use = "video" },
+  { mime = "application/octet-stream", use = "video" },
+  { mime = "audio/*", use = "audio" },
+  { mime = "inode/x-empty", use = "text" },
+  { mime = "application/json", use = "text" },
+
+  { mime = "application/zip", use = "archive" },
+  { mime = "application/gzip", use = "archive" },
+  { mime = "application/x-bzip", use = "archive" },
+  { mime = "application/x-bzip2", use = "archive" },
+  { mime = "application/x-tar", use = "archive" },
+  { mime = "application/x-7z-compressed", use = "archive" },
+  { mime = "application/x-rar", use = "archive" },
+  { mime = "application/pdf", use = "document" },
+  { mime = "application/epub+zip", use = "document" },
+  { mime = "application/x-mobipocket-:withebook", use = "document" },
+
+  { mime = "*", use = "fallback" },
+]
+
+[[plugin.prepend_fetchers]]
+id = "git"
+name = "*"
+run = "git"
+
+[[plugin.prepend_fetchers]]
+id = "git"
+name = "*/"
+run = "git"
