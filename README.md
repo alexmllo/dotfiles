@@ -1,1 +1,1 @@
-My dotfiles which include tmux, kitty, sketchybar and yazi configurations.
+My dotfiles which include tmux, kitty, sketchybar, yazi, lsd and bat configurations.
